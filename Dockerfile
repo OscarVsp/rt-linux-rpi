@@ -27,9 +27,15 @@ RUN mkdir -p /home/${USER_NAME}/workspace
 WORKDIR /home/${USER_NAME}/workspace
 RUN git clone https://github.com/raspberrypi/linux.git
 WORKDIR /home/${USER_NAME}/workspace/linux
+
 # Commit of bumped kernel to 6.6.21:
-RUN git checkout fc59dcb071ed17605d39565d2ec02ae0917529fd
-ARG KERNEL_VERSION=6.6.21
+# RUN git checkout fc59dcb071ed17605d39565d2ec02ae0917529fd
+# ARG KERNEL_VERSION=6.6.21
+
+# Commit of bumped kernel to 6.6.74:
+RUN git checkout 527ec1f34fa5820bac543ccea7ba5391065992bc
+ARG KERNEL_VERSION=6.6.74
+
 WORKDIR /home/${USER_NAME}/workspace
 RUN cp -a linux linux-rt
 RUN mv linux linux-stock
@@ -40,17 +46,22 @@ RUN mkdir -p /home/${USER_NAME}/workspace/patch
 WORKDIR /home/${USER_NAME}/workspace/patch
 # We're installing rt patch v6.6.21 since the built custom kernel is v6.6.21.
 # This was the latest available custom kernel and patch at time of benchmarking.
-ARG PATCH_NAME=patch-${KERNEL_VERSION}-rt26
+# ARG PATCH_NAME=patch-${KERNEL_VERSION}-rt26
+
+# We're installing rt patch v6.6.74 since the built custom kernel is v6.6.74.
+# This was the latest available custom kernel and patch at time of benchmarking.
+ARG PATCH_NAME=patch-${KERNEL_VERSION}-rt48
+
 RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/older/${PATCH_NAME}.patch.gz
 RUN gunzip ${PATCH_NAME}.patch.gz
 
 # Rpi5
-# ENV KERNEL=kernel_2712
-# ENV DEFCONFIG=bcm2712_defconfig
+ENV KERNEL=kernel_2712
+ENV DEFCONFIG=bcm2712_defconfig
 
 # Rpi4
-ENV KERNEL=kernel8
-ENV DEFCONFIG=bcm2711_defconfig
+# ENV KERNEL=kernel8
+# ENV DEFCONFIG=bcm2711_defconfig
 
 ## Stock kernel
 WORKDIR /home/${USER_NAME}/workspace/linux-stock
