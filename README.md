@@ -80,6 +80,6 @@ seconds aka 3 minutes to run the following command, after which the benchmarking
 Afterwards, your results can be found in the specified `cyclictest_X.txt` file.
 
 ```bash
-sudo docker run --rm colinianking/stress-ng --all 1 -t1h 1> /dev/null &
+sudo docker run --rm colinianking/stress-ng:16f29ebf40c39560676bea3cd465bdc62cc03dd9 --all 1 -t1h 1> /dev/null &
 sudo cyclictest -vmn -i100 -p99 -t --duration=1h > cyclictest_X.txt
 ```
