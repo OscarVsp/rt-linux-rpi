@@ -17,6 +17,13 @@ The script will also automatically copy the kernel images to your SD card.
 
 After inserting the SD card back into your Raspberry Pi and booting into the system, you can select
 which kernel to use by editing the Raspberry Pi's `/boot/firmware/config.txt` file.
+
+```
+[pi5]
+kernel=kernel_2712-v8-16k-stock.img
+
+```
+
 Reboot your system to load the selected kernel.
 
 ## Running the benchmarks
